@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/sh_calender_hometeam_border"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="0dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp">
+        <TextView
+            android:id="@+id/cardNoGameCalenderDayAbr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TUE"
+            android:textSize="10sp"/>
+        <TextView
+            android:id="@+id/cardNoGameCalenderDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:layout_below="@id/cardGameCalenderDayAbr"
+            android:layout_marginTop="-4dp"
+            android:textSize="14sp"
+            android:textAlignment="center"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

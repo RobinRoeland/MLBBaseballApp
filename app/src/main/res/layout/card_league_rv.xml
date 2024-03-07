@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardLeagueRV"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/button"
+    app:cardCornerRadius="20dp"
+    android:layout_marginStart="4dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/cardLeagueImg"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:paddingStart="8dp">
+        </ImageView>
+
+        <TextView
+            android:id="@+id/cardLeagueTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:text="League"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="20dp"
+            android:layout_toRightOf="@id/cardLeagueImg">
+        </TextView>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

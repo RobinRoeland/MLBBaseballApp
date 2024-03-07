@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.schedule.ScheduleFragment">
+
+    <ImageView
+        android:id="@+id/mlbImg"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+    </ImageView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sch_recyclerLeagues"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/mlbImg"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="@color/button"
+        android:foregroundTint="@color/white" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/sch_recyclerTeams"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/sch_recyclerLeagues"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"/>
+</RelativeLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.schedule.ScheduleFragment">
+
+    <RelativeLayout
+        android:id="@+id/scheduleTeamBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/button">
+        <ImageView
+            android:id="@+id/scheduleTeamBarLogo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp">
+        </ImageView>
+        <TextView
+            android:id="@+id/scheduleTeamBarName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Team Name"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/scheduleTeamBarLogo"
+            android:layout_marginStart="18dp"
+            android:textSize="32sp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/scheduleMonthBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/scheduleTeamBar"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp">
+
+        <ImageButton
+            android:id="@+id/scheduleMonthBarButtonLeft"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_arrow_left"
+            android:backgroundTint="@color/button"/>
+
+        <TextView
+            android:id="@+id/scheduleMonthBarTV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/scheduleMonthBarButtonLeft"
+            android:layout_toStartOf="@id/scheduleMonthBarButtonRight"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="Month - Year"/>
+
+        <ImageButton
+            android:id="@+id/scheduleMonthBarButtonRight"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_arrow_right"
+            android:backgroundTint="@color/button"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/scheduleMonthBar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/calenderRV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="#FFFFFF"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:padding="8dp" />
+    </RelativeLayout>
+
+</RelativeLayout>

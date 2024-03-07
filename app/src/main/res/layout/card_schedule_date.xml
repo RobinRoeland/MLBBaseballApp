@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardGameCalender"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="2dp"
+    app:cardCornerRadius="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="4dp">
+            <TextView
+                android:id="@+id/cardGameCalenderDayAbr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TUE"
+                android:textSize="10sp"/>
+            <TextView
+                android:id="@+id/cardGameCalenderDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:layout_below="@id/cardGameCalenderDayAbr"
+                android:layout_marginTop="-4dp"
+                android:textSize="14sp"
+                android:textAlignment="center"/>
+        </LinearLayout>
+
+
+
+
+        <ImageView
+            android:id="@+id/cardGameTeamImg"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"/>
+        <TextView
+            android:id="@+id/cardGameAtTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="At Team"
+            android:layout_below="@id/cardGameTeamImg"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/cardGameTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0:00 am EDT"
+            android:layout_below="@id/cardGameAtTeam"
+            android:layout_centerHorizontal="true"
+            android:textSize="12dp"/>
+
+        <TextView
+            android:id="@+id/cardGamePromoDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Promo Desc"
+            android:layout_below="@id/cardGameTime"
+            android:layout_centerHorizontal="true"
+            android:textStyle="italic"
+            android:textSize="10sp"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cardGamePromoDesc"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/cardGameTickets"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_game_ticket"/>
+
+            <ImageView
+                android:id="@+id/cardGamePromotion"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toEndOf="@id/cardGameTickets"
+                android:src="@drawable/ic_game_promotion"/>
+
+            <ImageView
+                android:id="@+id/cardGameBooking"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toEndOf="@id/cardGamePromotion"
+                android:src="@drawable/ic_game_booking"/>
+
+            <ImageView
+                android:id="@+id/cardGameFlight"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toEndOf="@id/cardGameBooking"
+                android:src="@drawable/ic_game_flight"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

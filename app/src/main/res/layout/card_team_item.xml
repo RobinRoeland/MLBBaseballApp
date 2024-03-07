@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/CardTeamItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentStart="true"
+    android:backgroundTint="@color/bgnd_teamCard"
+    app:cardCornerRadius="10dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/cardTeamItemImg"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:padding="8dp">
+        </ImageView>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/cardTeamItemImg"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/cardTeamItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="8dp"
+                android:text="Team"
+                android:textStyle="bold"
+                android:textColor="@color/white">
+            </TextView>
+
+            <TextView
+                android:id="@+id/cardTeamItemShortName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ShortName"
+                android:layout_below="@id/cardTeamItemName"
+                android:layout_alignLeft="@id/cardTeamItemName"
+                android:textColor="@color/white">
+            </TextView>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
