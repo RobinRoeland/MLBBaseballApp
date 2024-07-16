@@ -1,0 +1,8 @@
+Field:Terrace Reserved
+Boxes:404;440;150;60
+Box:441;200;45
+Box:442;200;45
+Field:terrace box
+Boxes:404;440;50;90
+Field:Club box
+Boxes:306;345;40;100

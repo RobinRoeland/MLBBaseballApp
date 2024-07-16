@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.baseballapp.classes.team.Team;
 import com.example.baseballapp.classes.team.TeamAllSeasonResponse;
 import com.example.baseballapp.data.MLBDataLayer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -62,8 +63,14 @@ public class GetTeamsTask extends AsyncTask<Integer, Integer, TeamAllSeasonRespo
 
         MLBDataLayer dataPool = MLBDataLayer.getInstance();
         for (Team t: teamResponse.teamAllSeason.teamQueryResults.row) {
-            t.m_imageName = "team/"+t.name_abbrev+".png";
+            t.m_imageName = t.name_abbrev+".png";
+            t.m_fullImageURL = "http://www.jursairplanefactory.com/baseballimg/team/"+ t.m_imageName;
+            t.m_localFileSubFolder = "/images/team";
             dataPool.teamList.add(t);
+
+            WebFetchImageTask webTask = new WebFetchImageTask(dataPool.baseContext);
+            webTask.m_image =  null;
+            webTask.execute(t);
         }
         dataPool.initLeaguesFromTeams();
     }

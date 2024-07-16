@@ -31,8 +31,6 @@ public class TeamSelectionActivity extends AppCompatActivity {
         if(getSupportActionBar() != null)
             getSupportActionBar().hide();
 
-        MLBDataLayer.getInstance().init();
-
         leagueViewModel = new TeamSelectionActViewModel();
 
         LayoutInflater inflater = getLayoutInflater();
@@ -45,7 +43,7 @@ public class TeamSelectionActivity extends AppCompatActivity {
             binding.mlbImg.setImageBitmap(leagueViewModel.m_mlbLogo.m_image);
         }
         else {
-            WebFetchImageTask webTask = new WebFetchImageTask();
+            WebFetchImageTask webTask = new WebFetchImageTask(getBaseContext());
             webTask.m_image = binding.mlbImg;
             webTask.execute(leagueViewModel.m_mlbLogo);
         }
@@ -87,8 +85,8 @@ public class TeamSelectionActivity extends AppCompatActivity {
             @Override
             public void onChanged(Team team) {
                 if (team != null){
-                    MLBDataLayer.getInstance().initGamesForSelectedTeam();
-                    Intent goToActivity = new Intent(getBaseContext(), MainActivity.class);
+                    Intent goToActivity = new Intent(getBaseContext(), LoadActivity.class);
+                    goToActivity.putExtra("startupphase", "phaseloadtwo_teamselection");
                     startActivity(goToActivity);
                 }
             }

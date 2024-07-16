@@ -61,11 +61,6 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.LeagueView
         {
             holder.m_leagueImage.setImageBitmap(league.m_image);
         }
-        else {
-            WebFetchImageTask webTask = new WebFetchImageTask();
-            webTask.m_image = holder.m_leagueImage;
-            webTask.execute(league);
-        }
     }
 
     @Override

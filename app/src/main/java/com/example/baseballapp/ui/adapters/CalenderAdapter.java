@@ -13,18 +13,14 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.baseballapp.R;
-import com.example.baseballapp.classes.CalenderHelpFunctions;
+import com.example.baseballapp.classes.functionlib.CalenderHelpFunctions;
 import com.example.baseballapp.classes.MLB.MLBGame;
 import com.example.baseballapp.classes.MLB.MLBTeamInfo;
-import com.example.baseballapp.classes.league.League;
 import com.example.baseballapp.classes.team.Team;
 import com.example.baseballapp.data.MLBDataLayer;
 import com.example.baseballapp.ui.schedule.ScheduleDialogue;
 import com.example.baseballapp.ui.schedule.ScheduleFragment;
 
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -166,10 +162,9 @@ public class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.BaseCa
                 MLBTeamInfo opponentTeamInfo = g.getOpponent(repo.m_selectedTeam.getValue());
                 Team opponentTeam = repo.getTeamWithMLBID(opponentTeamInfo.id);
 
-                myHolder.m_teamLogo.setImageBitmap(opponentTeam.m_image);
+                if(opponentTeam.m_image != null)
+                    myHolder.m_teamLogo.setImageBitmap(opponentTeam.m_image);
 
-                //TODO
-                //myHolder.m_booking
 
                 //Deze data krijgen wij niet binnen met the API maar kunnen we wel handelen
                 //myHolder.m_flight

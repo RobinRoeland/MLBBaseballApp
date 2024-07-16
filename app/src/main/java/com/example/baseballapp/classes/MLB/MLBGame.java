@@ -34,7 +34,7 @@ public class MLBGame {
     private MLBTeams teams;
 
     @JsonProperty("venue")
-    private MLBVenue venue;
+    public MLBVenue venue;
 
     @JsonProperty("content")
     private MLBContent content;

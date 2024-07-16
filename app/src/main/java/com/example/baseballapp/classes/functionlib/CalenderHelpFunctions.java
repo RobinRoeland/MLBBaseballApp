@@ -1,4 +1,4 @@
-package com.example.baseballapp.classes;
+package com.example.baseballapp.classes.functionlib;
 
 import java.time.LocalDateTime;
 

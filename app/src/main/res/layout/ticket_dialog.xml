@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="40dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:id="@+id/dialog_ticket_zone_name_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"/>
+
+        <Spinner
+            android:id="@+id/dialog_ticket_zone_boxes_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dialog_ticket_zone_name_spinner"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/dialog_ticket_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dialog_ticket_zone_boxes_spinner"
+            android:layout_marginTop="30dp"
+            android:text="Ticket \n Zone: zone_name \n box: box_number"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:id="@+id/dialog_ticket_order_ticket"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Order Ticket"
+            android:layout_below="@id/dialog_ticket_purchase_details"
+            android:backgroundTint="@color/button"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/dialog_ticket_purchase_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/light_gray"
+                app:cardCornerRadius="20dp"
+                android:layout_below="@id/dialog_ticket_preview">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/dialog_ticket_purchase_name_TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="8sp">
+                </TextView>
+
+                <EditText
+                    android:id="@+id/dialog_ticket_purchase_name_ET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/dialog_ticket_purchase_name_TV"
+                    android:layout_alignBaseline="@id/dialog_ticket_purchase_name_TV"
+                    android:layout_marginRight="10dp">
+                </EditText>
+
+                <TextView
+                    android:id="@+id/dialog_ticket_purchase_email_TV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:layout_below="@id/dialog_ticket_purchase_name_TV"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="8sp">
+                </TextView>
+
+                <EditText
+                    android:id="@+id/dialog_ticket_purchase_email_ET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/dialog_ticket_purchase_email_TV"
+                    android:layout_alignBaseline="@id/dialog_ticket_purchase_email_TV"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp">
+                </EditText>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <Button
+            android:id="@+id/dialog_ticket_back"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:layout_below="@id/dialog_ticket_order_ticket"
+            android:backgroundTint="@color/button"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp" />
+
+        <Button
+            android:id="@+id/dialog_ticket_purchase"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:text="Purchase"
+            android:layout_below="@id/dialog_ticket_order_ticket"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/button"
+            android:layout_marginEnd="10dp" />
+
+        <ImageView
+            android:id="@+id/dialog_ticket_field_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dialog_ticket_purchase"/>
+
+    </RelativeLayout>
+</RelativeLayout>

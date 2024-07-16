@@ -58,11 +58,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         {
             holder.m_teamImage.setImageBitmap(team.m_image);
         }
-        else {
-            WebFetchImageTask webTask = new WebFetchImageTask();
-            webTask.m_image =  holder.m_teamImage;
-            webTask.execute(team);
-        }
+
     }
 
     @Override

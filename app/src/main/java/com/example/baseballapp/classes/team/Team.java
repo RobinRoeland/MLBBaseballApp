@@ -4,9 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.example.baseballapp.classes.BitMapItem;
+import com.example.baseballapp.tasks.WebFetchImageTask;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Team extends BitMapItem {
+
     public String venue_short;
     public String sport_id;
     public String league_abbrev;

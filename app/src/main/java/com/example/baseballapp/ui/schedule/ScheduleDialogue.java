@@ -21,6 +21,7 @@ import com.example.baseballapp.classes.team.Team;
 import com.example.baseballapp.data.MLBDataLayer;
 import com.example.baseballapp.databinding.DialogScheduleBinding;
 import com.example.baseballapp.tasks.WebFetchImageTask;
+import com.example.baseballapp.ui.tickets.TicketDialog;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -40,6 +41,12 @@ public class ScheduleDialogue extends DialogFragment {
         bmpForStadium = null;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.TransparentDialogTheme);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,10 +60,16 @@ public class ScheduleDialogue extends DialogFragment {
         Team homeTeam = MLBDataLayer.getInstance().getTeamWithMLBID(m_game.getHomeTeam().id);
         Team awayTeam = MLBDataLayer.getInstance().getTeamWithMLBID(m_game.getOpponent(homeTeam).id);
 
+        //Load seating data from venue
+        String fileName = "assets/seats_" + homeTeam.name_abbrev + ".txt";
+        m_game.venue.OpenStadiumTicketsZoneFile(getContext(), fileName);
+
         //Stadium image
         bmpForStadium = new BitMapItem();
-        bmpForStadium.m_imageName = "stadium/S_" + homeTeam.name_abbrev + ".webp";
-        WebFetchImageTask webTaskStadium = new WebFetchImageTask();
+        bmpForStadium.m_imageName = "S_" + homeTeam.name_abbrev + ".webp";
+        bmpForStadium.m_localFileSubFolder = "/images/stadium";
+        bmpForStadium.m_fullImageURL = "http://www.jursairplanefactory.com/baseballimg/" + "stadium/" + bmpForStadium.m_imageName;
+        WebFetchImageTask webTaskStadium = new WebFetchImageTask(getContext());
         webTaskStadium.m_image = binding.dialogScheduleStadium;
         webTaskStadium.execute(bmpForStadium);
 
@@ -73,12 +86,12 @@ public class ScheduleDialogue extends DialogFragment {
         binding.dialogScheduleAwayteam.setText(awayTeam.name_short);
 
         //Home Team image
-        WebFetchImageTask webTaskHome = new WebFetchImageTask();
+        WebFetchImageTask webTaskHome = new WebFetchImageTask(getContext());
         webTaskHome.m_image = binding.dialogScheduleHometeamImage;
         webTaskHome.execute(homeTeam);
 
         //Away Team image
-        WebFetchImageTask webTaskAway = new WebFetchImageTask();
+        WebFetchImageTask webTaskAway = new WebFetchImageTask(getContext());
         webTaskAway.m_image = binding.dialogScheduleAwayteamImage;
         webTaskAway.execute(awayTeam);
 
@@ -109,6 +122,15 @@ public class ScheduleDialogue extends DialogFragment {
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 CustomTabsIntent customTabsIntent = builder.build();
                 customTabsIntent.launchUrl(getActivity(), Uri.parse(link));
+            }
+        });
+
+        binding.dialogScheduleTickets.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TicketDialog dialog = new TicketDialog(m_game);
+                dismiss();
+                dialog.show(getParentFragmentManager(), "ticket");
             }
         });
     }

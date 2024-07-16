@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
     android:layout_alignParentStart="true"
-    android:backgroundTint="@color/bgnd_teamCard"
+    android:backgroundTint="@color/bgndCard"
     app:cardCornerRadius="10dp"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"

@@ -19,6 +19,7 @@ public class GetGamesTask extends AsyncTask<String, Integer, MLBApiResponse> {
         super.onPostExecute(games);
 
         MLBDataLayer.getInstance().MLBGamesList = games;
+        MLBDataLayer.getInstance().MLBGamesList.m_isReady = true;
     }
 
     @Override

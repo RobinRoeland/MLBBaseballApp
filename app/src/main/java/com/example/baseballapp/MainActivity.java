@@ -7,6 +7,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        MLBDataLayer.getInstance().baseContext = getBaseContext();
 
         if(getSupportActionBar() != null)
             getSupportActionBar().hide();
@@ -36,6 +39,13 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        String jumpTo = getIntent().getStringExtra("JumpToFragment");
+        if(jumpTo != null && jumpTo.equals("TicketSuccess")) {
+                NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.mobile_navigation);
+                navGraph.setStartDestination(R.id.navigation_notifications);
+                navController.setGraph(navGraph);
+        }
 
 
     }
