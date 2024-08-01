@@ -3,7 +3,6 @@ package com.example.baseballapp.classes.MLB;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.baseballapp.LoadActivity;
 import com.example.baseballapp.classes.stadium.VenueBox;
 import com.example.baseballapp.classes.stadium.VenueZone;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,9 +10,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -25,7 +24,7 @@ public class MLBVenue {
     public String name;
 
     @JsonProperty("link")
-    private String link;
+    public String link;
 
     @JsonIgnore
     public ArrayList<VenueZone> m_zones;
@@ -34,13 +33,13 @@ public class MLBVenue {
         m_zones = new ArrayList();
     }
 
-    //Dit leest the structuur van de zones van het stadium uit van een file in de assets src/main/assets folder
+    //Dit leest the structuur van de seating-zones van het stadium van het team uit van een file in de assets src/main/assets folder
     public void OpenStadiumTicketsZoneFile(Context context, String filename) {
         m_zones.clear();
 
         InputStream inputStream = MLBVenue.class.getClassLoader().getResourceAsStream(filename);
         if (inputStream == null){
-            inputStream = MLBVenue.class.getClassLoader().getResourceAsStream("seats_std.txt");
+            inputStream = MLBVenue.class.getClassLoader().getResourceAsStream("assets/seats_STD.txt");
             if (inputStream == null){
                 Log.e("MLBVenue", "Missing Standard Seat File");
                 return;

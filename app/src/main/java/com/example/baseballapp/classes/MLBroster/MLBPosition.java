@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MLBPosition {
     @JsonProperty("code")
-    private String code;
+    public String code;
     @JsonProperty("name")
-    private String name;
+    public String name;
     @JsonProperty("type")
-    private String type;
+    public String type;
     @JsonProperty("abbreviation")
     public String abbreviation;
 

@@ -7,20 +7,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.baseballapp.R;
 import com.example.baseballapp.classes.league.League;
 import com.example.baseballapp.classes.league.LeagueList;
-import com.example.baseballapp.data.MLBDataLayer;
-import com.example.baseballapp.tasks.WebFetchImageTask;
 import com.example.baseballapp.ui.TeamSelectionActViewModel;
 
 public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.LeagueViewHolder> {
-    private Context m_context;
+    private final Context m_context;
     private LeagueList m_displayList;
-    private TeamSelectionActViewModel m_model;
+    private final TeamSelectionActViewModel m_model;
 
     public LeagueAdapter(TeamSelectionActViewModel model, Context context, LeagueList leagueList){
         m_context = context;
@@ -44,8 +45,8 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.LeagueView
             public void onClick(View view) {
                 int pos = holder.getAdapterPosition();
                 League league = m_displayList.get(pos);
-                m_model.m_currentLeagueID = league.id;
-                m_model.setFilteredTeamList(MLBDataLayer.getInstance().teamList, league.id);
+                m_model.m_currentLeagueID.postValue(league.id);
+                //this will trigger observe in teamselectionactivity
             }
         });
 
@@ -61,6 +62,15 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.LeagueView
         {
             holder.m_leagueImage.setImageBitmap(league.m_image);
         }
+        if(league.id  == m_model.m_currentLeagueID.getValue()) {
+            @ColorInt int color = ContextCompat.getColor(m_context, R.color.league_selected);
+            holder.m_card.setCardBackgroundColor(color);
+        }
+        else {
+            @ColorInt int color = ContextCompat.getColor(m_context, R.color.league_notselected);
+            holder.m_card.setCardBackgroundColor(color);
+        }
+
     }
 
     @Override
@@ -69,13 +79,15 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.LeagueView
     }
 
     public class LeagueViewHolder extends RecyclerView.ViewHolder{
-        private LeagueAdapter m_adapter;
-        private TextView m_leagueName;
-        private ImageView m_leagueImage;
+        private final LeagueAdapter m_adapter;
+        private final TextView m_leagueName;
+        private final ImageView m_leagueImage;
+        private final CardView m_card;
 
         public LeagueViewHolder(@NonNull View itemView, LeagueAdapter ad) {
             super(itemView);
             m_adapter = ad;
+            m_card = itemView.findViewById(R.id.cardLeague_card);
             m_leagueName = itemView.findViewById(R.id.cardLeagueTV);
             m_leagueImage = itemView.findViewById(R.id.cardLeagueImg);
         }

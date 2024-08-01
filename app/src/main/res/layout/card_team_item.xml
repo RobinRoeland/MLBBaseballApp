@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:layout_alignParentEnd="true"
     android:layout_alignParentStart="true"
-    android:backgroundTint="@color/bgndCard"
     app:cardCornerRadius="10dp"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
@@ -19,8 +18,8 @@
 
         <ImageView
             android:id="@+id/cardTeamItemImg"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:padding="8dp">

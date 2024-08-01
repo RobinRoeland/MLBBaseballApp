@@ -5,13 +5,25 @@
     android:background="@color/black">
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:id="@+id/load_logo_image"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/mlblogo"
         android:layout_above="@id/load_splashBack"
         android:scaleX="0.5"
         android:scaleY="0.5"
         android:layout_marginBottom="-30dp"/>
+    <TextView
+        android:id="@+id/load_logo_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/load_busy_with"
+        android:text="Major League Baseball"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@color/white_smoke"
+        android:layout_below="@+id/load_logo_image"
+        android:textAlignment="center"/>
 
     <ImageView
         android:id="@+id/load_splashBack"
@@ -50,5 +62,14 @@
         android:textColor="@color/gray"
         android:textSize="10dp"
         android:layout_marginBottom="32dp"/>
+    <TextView
+        android:id="@+id/load_error_message_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="@color/red"
+        />
 
 </RelativeLayout>

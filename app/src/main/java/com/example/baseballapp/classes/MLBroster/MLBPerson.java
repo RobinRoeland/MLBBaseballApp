@@ -9,7 +9,7 @@ public class MLBPerson extends BitMapItem {
     @JsonProperty("fullName")
     public String fullName;
     @JsonProperty("link")
-    private String link;
+    public String link;
 
     // getters and setters
 }

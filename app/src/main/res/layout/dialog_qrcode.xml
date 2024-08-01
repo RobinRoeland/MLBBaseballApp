@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerInParent="true"
+    android:backgroundTint="@color/gray"
+    app:cardCornerRadius="40dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
+        <TextView
+            android:id="@+id/dialogqr_ticketnr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="ticketnumber"
+            android:textAlignment="center"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:textSize="12sp"
+            android:layout_marginLeft="10dp"/>
+        <ImageView
+            android:id="@+id/dialogqr_qrcodeimage"
+            android:layout_width="650dp"
+            android:layout_height="320dp"
+            android:layout_below="@id/dialogqr_ticketnr"
+            android:padding="10dp"
+            />
+        <TextView
+            android:id="@+id/dialogqr_infotxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:text="ticketinfo"
+            android:layout_below="@+id/dialogqr_qrcodeimage"
+            android:textSize="12sp"
+            android:padding="10dp"/>
+        <Button
+            android:id="@+id/dialogqr_buttonreturn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dialogqr_infotxt"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/button"
+            android:layout_centerHorizontal="true"
+            android:text="Back" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

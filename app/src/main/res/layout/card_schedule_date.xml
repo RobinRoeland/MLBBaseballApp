@@ -66,9 +66,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Promo Desc"
+            android:textStyle="bold"
             android:layout_below="@id/cardGameTime"
             android:layout_centerHorizontal="true"
-            android:textStyle="italic"
             android:textSize="10sp"/>
 
         <RelativeLayout
@@ -80,30 +80,37 @@
             android:layout_marginBottom="8dp">
 
             <ImageView
+                android:id="@+id/cardGamePlaceholderSpace"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_toStartOf="@id/cardGameTickets"
+                android:src="@drawable/ic_game_placeholder"/>
+            <ImageView
                 android:id="@+id/cardGameTickets"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toStartOf="@id/cardGamePromotion"
                 android:src="@drawable/ic_game_ticket"/>
 
             <ImageView
                 android:id="@+id/cardGamePromotion"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_toEndOf="@id/cardGameTickets"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toStartOf="@id/cardGameBooking"
                 android:src="@drawable/ic_game_promotion"/>
 
             <ImageView
                 android:id="@+id/cardGameBooking"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_toEndOf="@id/cardGamePromotion"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_toStartOf="@id/cardGameFlight"
                 android:src="@drawable/ic_game_booking"/>
 
             <ImageView
                 android:id="@+id/cardGameFlight"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_toEndOf="@id/cardGameBooking"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_game_flight"/>
         </RelativeLayout>
 

@@ -9,10 +9,10 @@ public class MLBTeamInfo {
     public int id;
 
     @JsonProperty("name")
-    private String name;
+    public String name;
 
     @JsonProperty("link")
-    private String link;
+    public String link;
 
     // Getter and Setter methods
 }

@@ -4,12 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.roster.RosterFragment">
-
+    <SearchView
+        android:id="@+id/roster_FilterTextBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:iconifiedByDefault="true"
+        android:layout_marginTop="2dp"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        android:layoutDirection="rtl"
+        android:searchIcon="@drawable/baseline_search_24"
+        android:backgroundTint="@color/white_smoke"
+        android:queryBackground="@color/white_smoke"
+        android:foregroundTint="@color/white"
+        android:elevation="10dp"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/roster_player_recycler"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:layout_below="@+id/roster_FilterTextBox"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"/>

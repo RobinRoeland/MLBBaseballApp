@@ -52,16 +52,31 @@
                 android:textColor="@color/white">
             </TextView>
 
-            <TextView
-                android:id="@+id/cardroster_player_number"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardroster_player_numbercircle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="20dp"
-                android:textColor="@color/white"
-                android:text="Nr"
-                android:textSize="20sp"/>
+                android:layout_alignParentEnd="true"
+                android:backgroundTint="@color/rosterJersyNr"
+                app:cardCornerRadius="20dp"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/cardroster_player_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="20dp"
+                        android:textColor="@color/white"
+                        android:text="Nr"
+                        android:textSize="20sp"/>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
         </RelativeLayout>
 
     </RelativeLayout>

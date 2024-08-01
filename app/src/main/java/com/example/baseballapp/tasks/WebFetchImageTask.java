@@ -7,8 +7,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.example.baseballapp.R;
 import com.example.baseballapp.classes.BitMapItem;
 import com.example.baseballapp.classes.functionlib.LocaleFileLib;
+import com.example.baseballapp.data.MLBDataLayer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +20,7 @@ import java.net.URL;
 public class WebFetchImageTask extends AsyncTask<BitMapItem, Integer, Bitmap> {
     public ImageView m_image;
     public BitMapItem m_forItem;
-    private Context m_context;
+    private final Context m_context;
 
     public WebFetchImageTask(Context context){
         m_context = context;
@@ -40,21 +42,26 @@ public class WebFetchImageTask extends AsyncTask<BitMapItem, Integer, Bitmap> {
         String localeDiskFileName = m_forItem.m_localFileSubFolder + "/" + m_forItem.m_imageName;
 
         if (!LocaleFileLib.FileExists(localeDiskFileName, m_context)){
-            try{
-                URL urlConnection = new URL(dataUrl);
-                HttpURLConnection connection = (HttpURLConnection) urlConnection
-                        .openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream input = connection.getInputStream();
-                if (input != null){
-                    LocaleFileLib.createFolderIfNotExists(m_forItem.m_localFileSubFolder, m_context);
-                    LocaleFileLib.saveInputStreamToLocalFile(input, localeDiskFileName, m_context);
+            if(MLBDataLayer.getInstance().isOnline()) {
+                //only try to get online data if we are online
+                try{
+                    URL urlConnection = new URL(dataUrl);
+                    HttpURLConnection connection = (HttpURLConnection) urlConnection
+                            .openConnection();
+                    connection.setDoInput(true);
+                    connection.connect();
+                    InputStream input = connection.getInputStream();
+                    if (input != null){
+                        LocaleFileLib.createFolderIfNotExists(m_forItem.m_localFileSubFolder, m_context);
+                        LocaleFileLib.saveInputStreamToLocalFile(input, localeDiskFileName, m_context);
+                    }
+                }
+                catch (Exception e) {
+                    Log.e("WebTask error" , e.getMessage());
                 }
             }
-            catch (Exception e) {
-                Log.e("WebTask error" , e.getMessage());
-            }
+            else
+                return null; // no load
         }
 
         if (LocaleFileLib.FileExists(localeDiskFileName, m_context)){
@@ -76,8 +83,16 @@ public class WebFetchImageTask extends AsyncTask<BitMapItem, Integer, Bitmap> {
     protected void onPostExecute(Bitmap bitmap) {
         if (bitmap != null){
             m_forItem.m_image = bitmap;
+            m_forItem.m_ImageNotLoaded = false;
             if(m_image != null)
                 m_image.setImageBitmap(bitmap);
         }
+        else {
+            m_forItem.m_ImageNotLoaded = true;
+            m_forItem.m_image = BitmapFactory.decodeResource(m_context.getResources(), R.mipmap.ic_no_image);
+            if(m_image != null)
+                m_image.setImageResource(R.mipmap.ic_no_image);
+        }
+
     }
 }

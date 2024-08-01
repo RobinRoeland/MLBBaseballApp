@@ -1,0 +1,29 @@
+Field:Terrace Reserved
+Boxes:404;440;150;60
+Box:441;200;45
+Box:442;200;45
+Field:Terrace box
+Boxes:404;440;50;90
+Field:Club box
+Boxes:306;345;40;100
+Field:Loge Outfield Box
+Boxes:206;209;40;110
+Boxes:228;232;40;110
+Field:Loge Infield Box
+Boxes:210;227;40;130
+Field:Loge Diamond Box
+Boxes:210;227;20;150
+Field:Field Outfield Box
+Boxes:106;109;50;150
+Boxes:126;131;50;150
+Field:Field Infield Box
+Boxes:110;125;50;200
+Field:Field Diamond Box
+Boxes:110;125;25;250
+Field:Loge Specials
+Boxes:201;205;50;75
+Boxes:233;238;50;75
+Field:Dew Deck
+Boxes:302;305;30;50
+Field:Field Specials
+Boxes:101;104;50;100

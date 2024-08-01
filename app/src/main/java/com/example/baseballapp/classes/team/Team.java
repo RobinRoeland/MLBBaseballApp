@@ -1,18 +1,22 @@
 package com.example.baseballapp.classes.team;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.example.baseballapp.classes.BitMapItem;
-import com.example.baseballapp.tasks.WebFetchImageTask;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Entity(tableName = "team_table")
 public class Team extends BitMapItem {
-
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "team_id")
+    public String team_id;
+    public String team_code;
     public String venue_short;
     public String sport_id;
     public String league_abbrev;
-    public String team_id;
     public String spring_league_id;
     public String active_sw;
     public String division;
@@ -28,7 +32,6 @@ public class Team extends BitMapItem {
     public String name_display_brief;
     public String sport_code_name;
     public String spring_league;
-    public String league;
     public String division_id;
     public String sport_code;
     public String time_zone_num;
@@ -64,7 +67,6 @@ public class Team extends BitMapItem {
     public String base_url;
     public String time_zone;
     public String address_city;
-    public String team_code;
     public String mlb_org_abbrev;
     public String address_intl;
     public String time_zone_generic;
@@ -73,4 +75,5 @@ public class Team extends BitMapItem {
     public String home_opener_time;
     public String mlb_org_short;
     public String league_id;
+    public String league;
 }

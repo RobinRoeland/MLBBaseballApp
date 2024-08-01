@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,11 +13,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.example.baseballapp.data.MLBDataLayer;
 import com.example.baseballapp.databinding.FragmentScheduleBinding;
 import com.example.baseballapp.ui.adapters.CalenderAdapter;
-import com.example.baseballapp.ui.adapters.LeagueAdapter;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.time.ZoneId;
 import java.util.Date;
 
@@ -52,31 +49,58 @@ public class ScheduleFragment extends Fragment {
         binding.scheduleMonthBarButtonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                datum = datum.minusMonths(1);
-                setMonth(datum);;
-                CalenderAdapter adapter = (CalenderAdapter) binding.calenderRV.getAdapter();
-                adapter.setDate(datum);
-                adapter.notifyDataSetChanged();
-                binding.calenderRV.smoothScrollToPosition(0);
+                goOneMonthBack();
             }
         });
 
         binding.scheduleMonthBarButtonRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                datum = datum.plusMonths(1);
-                setMonth(datum);
-                CalenderAdapter adapter = (CalenderAdapter) binding.calenderRV.getAdapter();
-                adapter.setDate(datum);
-                adapter.notifyDataSetChanged();
-                binding.calenderRV.smoothScrollToPosition(0);
+                goOneMonthForward();
             }
         });
+/*
+        ItemTouchHelper itemtouchhelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                if (direction == ItemTouchHelper.LEFT) {
+                    // one month back
+                    goOneMonthBack();
+                }
+                if (direction == ItemTouchHelper.RIGHT) {
+                    // One month forward
+                    goOneMonthForward();
+                }
+            }
+        });
+        itemtouchhelper.attachToRecyclerView(binding.calenderRV);
+
+ */
 
         return root;
     }
 
+    public void goOneMonthForward() {
+        datum = datum.plusMonths(1);
+        setMonth(datum);
+        CalenderAdapter adapter = (CalenderAdapter) binding.calenderRV.getAdapter();
+        adapter.setDate(datum);
+        adapter.notifyDataSetChanged();
+        binding.calenderRV.smoothScrollToPosition(0);
+    }
+    public void goOneMonthBack() {
+        datum = datum.minusMonths(1);
+        setMonth(datum);
+        CalenderAdapter adapter = (CalenderAdapter) binding.calenderRV.getAdapter();
+        adapter.setDate(datum);
+        adapter.notifyDataSetChanged();
+        binding.calenderRV.smoothScrollToPosition(0);
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

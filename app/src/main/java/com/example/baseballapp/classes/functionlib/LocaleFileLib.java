@@ -1,7 +1,9 @@
 package com.example.baseballapp.classes.functionlib;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,21 +55,15 @@ public class LocaleFileLib {
     public static boolean deleteFileIfExists(String filename, Context context) {
         File file = new File(context.getFilesDir(), filename);
         if (file.exists()) {
-            if (file.delete()) {
-                return true; // File deleted successfully
-            } else {
-                return false; // Failed to delete file
-            }
+            // Failed to delete file
+            return file.delete(); // File deleted successfully
         }
         return true; // File doesn't exist, no action needed
     }
 
     public static boolean FileExists(String filename, Context context) {
         File file = new File(context.getFilesDir(), filename);
-        if (file.exists()) {
-            return true;
-        }
-        return false;
+        return file.exists();
     }
     public static boolean createFolderIfNotExists(String folderName, Context context) {
         // Get the app's internal files directory
@@ -89,5 +85,19 @@ public class LocaleFileLib {
             //Log.d("FolderCreation", "Folder already exists: " + directory.getAbsolutePath());
         }
         return returnvalue;
+    }
+    public static void saveBitmapToLocalFile(Bitmap bmpToSave, String folderName, String filename, Context context) {
+        File directory = new File(context.getFilesDir(), folderName);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        File file = new File(directory, filename);
+        try (FileOutputStream out = new FileOutputStream(file)) {
+            bmpToSave.compress(Bitmap.CompressFormat.PNG, 100, out);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(context, "Failed to save Bitmap", Toast.LENGTH_SHORT).show();
+        }
     }
 }

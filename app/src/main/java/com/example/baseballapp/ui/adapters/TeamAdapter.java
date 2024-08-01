@@ -6,24 +6,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.baseballapp.R;
-import com.example.baseballapp.classes.league.League;
 import com.example.baseballapp.classes.team.Team;
 import com.example.baseballapp.classes.team.TeamList;
 import com.example.baseballapp.data.MLBDataLayer;
-import com.example.baseballapp.tasks.WebFetchImageTask;
 
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder> {
-    private Context m_context;
+    private final Context m_context;
     private TeamList m_displayList;
+    private final MLBDataLayer m_repo;
 
-    public TeamAdapter(Context context, TeamList teamList){
+    public TeamAdapter(Context context, TeamList teamList, MLBDataLayer r){
         m_context = context;
         m_displayList = teamList;
+        m_repo = r;
     }
 
     public void setDisplayList(TeamList teamList){
@@ -42,7 +46,19 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
             public void onClick(View view) {
                 int pos = holder.getAdapterPosition();
                 Team team = m_displayList.get(pos);
-                MLBDataLayer.getInstance().m_selectedTeam.setValue(team);
+                if(!m_repo.isOnline()) {
+                    //offline
+                    if(m_repo.isTeamDetailsAvailableOffline(team)) {
+                        MLBDataLayer.getInstance().m_selectedTeam.setValue(team);
+                    }
+                    else {
+                        Toast.makeText(parent.getContext(), "Team " + team.mlb_org_abbrev + " has not been visited before while online.", Toast.LENGTH_LONG).show();
+                    }
+                }
+                else {
+                    //online
+                    MLBDataLayer.getInstance().m_selectedTeam.setValue(team);
+                }
             }
         });
         return holder;
@@ -58,7 +74,15 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
         {
             holder.m_teamImage.setImageBitmap(team.m_image);
         }
-
+        //set background color of cardview if online of not offline available
+        if(!m_repo.isTeamDetailsAvailableOffline(team) && !m_repo.isOnline()) {
+            @ColorInt int color = ContextCompat.getColor(m_context, R.color.teamNotAvailableOffline);
+            holder.m_Card.setCardBackgroundColor(color);
+        }
+        else {
+            @ColorInt int color = ContextCompat.getColor(m_context, R.color.bgndCard);
+            holder.m_Card.setCardBackgroundColor(color);
+        }
     }
 
     @Override
@@ -67,10 +91,11 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
     }
 
     public class TeamViewHolder extends RecyclerView.ViewHolder{
-        private TeamAdapter m_adapter;
-        private TextView m_teamName;
-        private TextView m_teamShortName;
-        private ImageView m_teamImage;
+        private final TeamAdapter m_adapter;
+        private final TextView m_teamName;
+        private final TextView m_teamShortName;
+        private final ImageView m_teamImage;
+        private final CardView m_Card;
 
         public TeamViewHolder(@NonNull View itemView, TeamAdapter ad) {
             super(itemView);
@@ -78,6 +103,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
             m_teamName = itemView.findViewById(R.id.cardTeamItemName);
             m_teamShortName = itemView.findViewById(R.id.cardTeamItemShortName);
             m_teamImage = itemView.findViewById(R.id.cardTeamItemImg);
+            m_Card = itemView.findViewById(R.id.CardTeamItem);
         }
     }
 }

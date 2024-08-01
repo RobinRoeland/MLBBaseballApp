@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MLBContent {
     @JsonProperty("link")
-    private String link;
+    public String link;
 
     // Getter and Setter methods
 

@@ -12,7 +12,7 @@ public class MLBRosterResponse {
     @JsonProperty("link")
     private String link;
     @JsonProperty("teamId")
-    private Integer teamId;
+    public Integer teamId;
     @JsonProperty("rosterType")
     private String rosterType;
     // getters and setters

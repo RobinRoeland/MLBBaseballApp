@@ -25,7 +25,7 @@ public class MLBDate {
     private int totalGamesInProgress;
 
     @JsonProperty("games")
-    private List<MLBGame> games;
+    public List<MLBGame> games;
 
     public List<MLBGame> getGamesForTeam(Team team){
         List<MLBGame> gamesWithTeam = new ArrayList<MLBGame>();
@@ -34,5 +34,12 @@ public class MLBDate {
                 gamesWithTeam.add(game);
         }
         return gamesWithTeam;
+    }
+    public List<MLBGame> getAllGames(){
+        List<MLBGame> retgames = new ArrayList<MLBGame>();
+        for (MLBGame game: games) {
+            retgames.add(game);
+        }
+        return retgames;
     }
 }

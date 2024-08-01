@@ -1,0 +1,31 @@
+Field:Top Deck
+Boxes:1;13;100;60
+Field:Reserve Lower Deck
+Boxes:1;9;100;70
+Field:Reserve Level
+Boxes:12;38;100;65
+Boxes:39;61;100;55
+Field:Club Level
+Boxes:201;233;100;75
+Field:Loge Center Level
+Boxes:101;150;150;110
+Field:Loge Rear Level
+Boxes:151;168;150;100
+Field:Field Homeplate Level
+Boxes:1;25;200;250
+Field:Field Rightfield Level
+Box:26;200;200
+Box:28;200;200
+Box:30;200;200
+Box:32;200;200
+Field:Field Leftfield Level
+Box:27;200;200
+Box:29;200;200
+Box:31;200;200
+Box:33;200;200
+Field:Field Outfield Level
+Boxes:34;53;200;250
+Field:Time Warner Cable
+Boxes:301;309;200;100
+Field:Coca Cola Pavillion
+Boxes:310;316;200;100

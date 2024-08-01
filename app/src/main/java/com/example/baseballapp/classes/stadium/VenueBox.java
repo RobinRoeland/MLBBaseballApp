@@ -2,6 +2,8 @@ package com.example.baseballapp.classes.stadium;
 
 import android.util.Log;
 
+import java.util.Random;
+
 public class VenueBox {
     public String m_BoxName;
     public int m_BoxSeats;
@@ -22,5 +24,11 @@ public class VenueBox {
         m_BoxName = parts[0];
         m_BoxSeats = Integer.parseInt(parts[1]);
         m_BoxPrice = Float.parseFloat(parts[2]);
+    }
+
+    public String getRandomSeatNr() {
+        Random r = new Random();
+        int seatnr = r.nextInt(m_BoxSeats) + 1;
+        return String.valueOf(seatnr);
     }
 }

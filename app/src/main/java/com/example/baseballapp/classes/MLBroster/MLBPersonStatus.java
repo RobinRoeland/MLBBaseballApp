@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MLBPersonStatus {
     @JsonProperty("code")
-    private String code;
+    public String code;
     @JsonProperty("description")
-    private String description;
+    public String description;
 
     // getters and setters
 }

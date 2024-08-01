@@ -16,6 +16,7 @@
         <ImageView
             android:id="@+id/dialog_schedule_stadium"
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_height="120dp"/>
 
         <TextView
@@ -143,15 +144,6 @@
                 android:layout_height="40dp"
                 android:text="Roster"
                 android:layout_below="@id/dialog_schedule_accomodation"
-                android:textSize="12sp"
-                android:backgroundTint="@color/button"/>
-
-            <Button
-                android:id="@+id/dialog_schedule_scoring"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text="Scoring"
-                android:layout_below="@id/dialog_schedule_roster"
                 android:textSize="12sp"
                 android:backgroundTint="@color/button"/>
 

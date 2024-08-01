@@ -13,12 +13,12 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.baseballapp.R;
-import com.example.baseballapp.classes.functionlib.CalenderHelpFunctions;
 import com.example.baseballapp.classes.MLB.MLBGame;
 import com.example.baseballapp.classes.MLB.MLBTeamInfo;
+import com.example.baseballapp.classes.functionlib.CalenderHelpFunctions;
 import com.example.baseballapp.classes.team.Team;
 import com.example.baseballapp.data.MLBDataLayer;
-import com.example.baseballapp.ui.schedule.ScheduleDialogue;
+import com.example.baseballapp.ui.dialogs.ScheduleDialog;
 import com.example.baseballapp.ui.schedule.ScheduleFragment;
 
 import java.time.LocalDateTime;
@@ -38,13 +38,13 @@ public class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.BaseCa
         gameDay
     }
 
-    private MLBDataLayer repo;
+    private final MLBDataLayer repo;
     
     private LocalDateTime m_datum;
     public Context m_context;
     private ECalenderViewTypes viewTypes;
-    private ArrayList<List<MLBGame>> foundGameForMonth;
-    private ScheduleFragment m_parentFragment;
+    private final ArrayList<List<MLBGame>> foundGameForMonth;
+    private final ScheduleFragment m_parentFragment;
 
     public CalenderAdapter(Context c, LocalDateTime date, ScheduleFragment f){
         repo = MLBDataLayer.getInstance();
@@ -125,7 +125,7 @@ public class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.BaseCa
                         int pos = finalHolder.getAdapterPosition();
                         List<MLBGame> games = foundGameForMonth.get(pos);
                         if (games != null && games.size() > 0) {
-                            ScheduleDialogue dialogue = new ScheduleDialogue(games.get(0));
+                            ScheduleDialog dialogue = new ScheduleDialog(games.get(0));
                             dialogue.show(m_parentFragment.getParentFragmentManager(), "schedule_dialog");
                         }
                     }
@@ -159,7 +159,7 @@ public class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.BaseCa
             List<MLBGame> games = foundGameForMonth.get(position);
             if (games != null && games.size() > 0) {
                 MLBGame g = games.get(0);
-                MLBTeamInfo opponentTeamInfo = g.getOpponent(repo.m_selectedTeam.getValue());
+                MLBTeamInfo opponentTeamInfo = g.getOpponentInfo(repo.m_selectedTeam.getValue());
                 Team opponentTeam = repo.getTeamWithMLBID(opponentTeamInfo.id);
 
                 if(opponentTeam.m_image != null)
@@ -170,6 +170,25 @@ public class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.BaseCa
                 //myHolder.m_flight
                 //myHolder.m_promo
                 //myHolder.m_promoDesc
+                if(g.isInThePast()) {
+                    myHolder.m_flight.setVisibility(View.GONE);
+                    myHolder.m_ticket.setVisibility(View.GONE);
+                    myHolder.m_booking.setVisibility(View.GONE);
+                }
+                else {
+                    myHolder.m_flight.setVisibility(View.VISIBLE);
+                    myHolder.m_ticket.setVisibility(View.VISIBLE);
+                    myHolder.m_booking.setVisibility(View.VISIBLE);
+                }
+                if(g.description != null && !g.description.equals("")) {
+                    // there is a special event
+                    myHolder.m_promo.setVisibility(View.VISIBLE);
+                    myHolder.m_promoDesc.setText(g.description);
+                }
+                else {
+                    myHolder.m_promo.setVisibility(View.GONE);
+                    myHolder.m_promoDesc.setText("");
+                }
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ssX");
                 LocalDateTime parsedDateTime = LocalDateTime.parse(g.gameDate, formatter);
@@ -177,8 +196,7 @@ public class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.BaseCa
                 // Convert LocalDateTime to ZonedDateTime with UTC time zone
                 ZonedDateTime zonedDateTimeUtc = ZonedDateTime.of(parsedDateTime, ZoneId.of("UTC"));
 
-                MLBTeamInfo homeTeamInfo = g.getHomeTeam();
-                Team homeTeam = repo.getTeamWithMLBID(homeTeamInfo.id);
+                Team homeTeam = g.getHomeTeam(repo);
 
                 // Convert ZonedDateTime to New York time zone
                 ZonedDateTime homeTeamZone = zonedDateTimeUtc.withZoneSameInstant(ZoneId.of(homeTeam.time_zone_alt));
@@ -186,7 +204,13 @@ public class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.BaseCa
                 DateTimeFormatter parsedformatter = DateTimeFormatter.ofPattern("HH:mm a z");
                 myHolder.m_time.setText(homeTeamZone.format(parsedformatter));
 
-                if(g.isHomeTeam(repo.m_selectedTeam.getValue())){
+                if(g.gameType.equalsIgnoreCase("s"))
+                {
+                    //spring training
+                    myHolder.m_card.setBackgroundResource(R.drawable.sh_calender_springtraining_border);
+                    myHolder.m_teamName.setText("vs. ");
+                }
+                else if(g.isHomeTeam(repo.m_selectedTeam.getValue())){
                     myHolder.m_card.setBackgroundResource(R.drawable.sh_calender_hometeam_border);
                     myHolder.m_teamName.setText("vs. ");
                 }
@@ -206,7 +230,7 @@ public class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.BaseCa
     }
 
     public class BaseCalenderItemViewHolder extends RecyclerView.ViewHolder{
-        private CalenderAdapter m_adapter;
+        private final CalenderAdapter m_adapter;
         private LocalDateTime m_datum;
 
         public BaseCalenderItemViewHolder(@NonNull View itemView, CalenderAdapter ad) {

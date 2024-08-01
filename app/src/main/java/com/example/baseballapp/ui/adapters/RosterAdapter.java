@@ -16,7 +16,7 @@ import com.example.baseballapp.classes.MLBroster.MLBRosterEntry;
 import java.util.List;
 
 public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.RosterViewHolder> {
-    private Context m_context;
+    private final Context m_context;
     private List<MLBRosterEntry> m_displayList;
 
     public RosterAdapter(Context context,List<MLBRosterEntry> rosterList){
@@ -42,7 +42,8 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.RosterView
         MLBRosterEntry entry = m_displayList.get(position);
         holder.m_playerName.setText(entry.MLBPerson.fullName);
         holder.m_playerPosition.setText(entry.MLBPosition.abbreviation);
-        holder.m_playerNr.setText(entry.jerseyNumber);
+        String jersynr = String.format("%02d", Integer.parseInt(entry.jerseyNumber));
+        holder.m_playerNr.setText(jersynr);
 
         if (entry.MLBPerson.m_image != null)
         {
@@ -56,11 +57,11 @@ public class RosterAdapter extends RecyclerView.Adapter<RosterAdapter.RosterView
     }
 
     public class RosterViewHolder extends RecyclerView.ViewHolder{
-        private RosterAdapter m_adapter;
-        private ImageView m_playerImage;
-        private TextView m_playerName;
-        private TextView m_playerPosition;
-        private TextView m_playerNr;
+        private final RosterAdapter m_adapter;
+        private final ImageView m_playerImage;
+        private final TextView m_playerName;
+        private final TextView m_playerPosition;
+        private final TextView m_playerNr;
 
 
         public RosterViewHolder(@NonNull View itemView, RosterAdapter ad) {

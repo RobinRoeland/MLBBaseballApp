@@ -14,8 +14,14 @@
     <color name="gray">#9E9E9E</color>
     <color name="green">#3E8C41</color>
     <color name="red">#C1382E</color>
+    <color name="league_notselected">#7C85B6</color>
+    <color name="league_selected">#3F51B5</color>
 
     <color name="teamHome">#E0F5FF</color>
     <color name="teamAway">#FFD5C6</color>
+    <color name="springTraining">#DEEFDF</color>
     <color name="teamBorder">#1D333333</color>
+    <color name="rosterJersyNr">#243388</color>
+    <color name="teamNotAvailableOffline">#C1D1DD</color>
+
 </resources>
