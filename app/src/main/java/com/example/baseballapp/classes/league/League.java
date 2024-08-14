@@ -1,5 +1,7 @@
 package com.example.baseballapp.classes.league;
 
+import android.graphics.Bitmap;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

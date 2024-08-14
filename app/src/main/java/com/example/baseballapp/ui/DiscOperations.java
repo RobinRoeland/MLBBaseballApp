@@ -53,15 +53,21 @@ public class DiscOperations {
     public static boolean deleteFileIfExists(String filename, Context context) {
         File file = new File(context.getFilesDir(), filename);
         if (file.exists()) {
-            // Failed to delete file
-            return file.delete(); // File deleted successfully
+            if (file.delete()) {
+                return true; // File deleted successfully
+            } else {
+                return false; // Failed to delete file
+            }
         }
         return true; // File doesn't exist, no action needed
     }
 
     public static boolean FileExists(String filename, Context context) {
         File file = new File(context.getFilesDir(), filename);
-        return file.exists();
+        if (file.exists()) {
+            return true;
+        }
+        return false;
     }
 
     public static boolean createFolderIfNotExists(String folderName, Context context) {

@@ -5,7 +5,9 @@ import android.os.AsyncTask;
 import com.example.baseballapp.classes.MLB.MLBApiResponse;
 import com.example.baseballapp.classes.MLB.MLBDate;
 import com.example.baseballapp.classes.MLB.MLBGame;
+import com.example.baseballapp.classes.MLB.MLBTicket;
 import com.example.baseballapp.classes.roomDB.Room_MLBGame;
+import com.example.baseballapp.classes.roomDB.Room_MLBTicket;
 import com.example.baseballapp.data.BaseballAppRoomDatabase;
 import com.example.baseballapp.data.MLBDataLayer;
 
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Task_LoadGamesFromDB extends AsyncTask<MLBDataLayer, Object, List<Room_MLBGame>> {
-    private final String TAG = "Task_LoadGames";
+    private String TAG = "Task_LoadGames";
     private MLBDataLayer mRepo;
     @Override
     protected List<Room_MLBGame> doInBackground(MLBDataLayer... repoL) {
@@ -21,7 +23,7 @@ public class Task_LoadGamesFromDB extends AsyncTask<MLBDataLayer, Object, List<R
 
         BaseballAppRoomDatabase db = BaseballAppRoomDatabase.getInstance(mRepo.baseContext);
         //database tabel inlezen, als klaar, in postexecute zet in repo
-        List<Room_MLBGame> gamesList = db.gameDao().getAllgames();
+        List<Room_MLBGame> gamesList = (List<Room_MLBGame>) db.gameDao().getAllgames();
         return gamesList;
     }
 

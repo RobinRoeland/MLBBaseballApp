@@ -1,6 +1,7 @@
 package com.example.baseballapp.ui.adapters;
 
 import android.content.Context;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.baseballapp.R;
 import com.example.baseballapp.classes.MLB.MLBTicket;
+import com.example.baseballapp.classes.MLBroster.MLBRosterEntry;
+import com.example.baseballapp.classes.team.Team;
 import com.example.baseballapp.data.MLBDataLayer;
+import com.example.baseballapp.databinding.DialogQrcodeBinding;
 import com.example.baseballapp.tasks.WebFetchImageTask;
 import com.example.baseballapp.ui.dialogs.QRCodeDialog;
 import com.example.baseballapp.ui.tickets.TicketsFragment;
@@ -20,7 +24,7 @@ import com.example.baseballapp.ui.tickets.TicketsFragment;
 import java.util.List;
 
 public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketViewHolder> {
-    private final Context m_context;
+    private Context m_context;
     private List<MLBTicket> m_ticketDisplayList;
     public TicketsFragment m_ticketsFragment;
 
@@ -84,13 +88,13 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     }
 
     public class TicketViewHolder extends RecyclerView.ViewHolder{
-        private final TicketAdapter m_adapter;
-        private final ImageView m_homeLogo;
-        private final ImageView m_awayLogo;
-        private final TextView m_homeTeam;
-        private final TextView m_awayTeam;
-        private final ImageView m_qrcode;
-        private final TextView m_gamedetails;
+        private TicketAdapter m_adapter;
+        private ImageView m_homeLogo;
+        private ImageView m_awayLogo;
+        private TextView m_homeTeam;
+        private TextView m_awayTeam;
+        private ImageView m_qrcode;
+        private TextView m_gamedetails;
         public MLBTicket m_ticket;
 
         public TicketViewHolder(@NonNull View itemView, TicketAdapter ad) {

@@ -2,8 +2,13 @@ package com.example.baseballapp.tasks;
 
 import android.os.AsyncTask;
 
+import com.example.baseballapp.classes.MLB.MLBApiResponse;
+import com.example.baseballapp.classes.MLB.MLBDate;
+import com.example.baseballapp.classes.MLB.MLBGame;
+import com.example.baseballapp.classes.MLBroster.MLBPerson;
 import com.example.baseballapp.classes.MLBroster.MLBRosterEntry;
 import com.example.baseballapp.classes.MLBroster.MLBRosterResponse;
+import com.example.baseballapp.classes.roomDB.Room_MLBGame;
 import com.example.baseballapp.classes.roomDB.Room_MLBRosterEntry;
 import com.example.baseballapp.classes.team.Team;
 import com.example.baseballapp.data.BaseballAppRoomDatabase;
@@ -13,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Task_LoadTeamRosterFromDB extends AsyncTask<MLBDataLayer, Object, List<Room_MLBRosterEntry>> {
-    private final String TAG = "Task_LoadTeamRosterFromDB";
+    private String TAG = "Task_LoadTeamRosterFromDB";
     private MLBDataLayer mRepo;
-    private final Team m_forTeam;
+    private Team m_forTeam;
     public Task_LoadTeamRosterFromDB(Team t) {
         m_forTeam = t;
     }
@@ -25,7 +30,7 @@ public class Task_LoadTeamRosterFromDB extends AsyncTask<MLBDataLayer, Object, L
 
         BaseballAppRoomDatabase db = BaseballAppRoomDatabase.getInstance(mRepo.baseContext);
         //database tabel inlezen, als klaar, in postexecute zet in repo
-        List<Room_MLBRosterEntry> playerRosterList = db.rosterDao().getAllRosterEntriesForTeam(Integer.parseInt(m_forTeam.mlb_org_id));
+        List<Room_MLBRosterEntry> playerRosterList = (List<Room_MLBRosterEntry>) db.rosterDao().getAllRosterEntriesForTeam(Integer.parseInt(m_forTeam.mlb_org_id));
         return playerRosterList;
     }
 
@@ -48,7 +53,7 @@ public class Task_LoadTeamRosterFromDB extends AsyncTask<MLBDataLayer, Object, L
         MLBRosterResponse response = new MLBRosterResponse();
         response.teamId = Integer.parseInt(m_forTeam.mlb_org_id);
         response.roster = listMLBRosterEntries;
-        mRepo.m_teamRosterMap.put(m_forTeam.mlb_org_id, response);
+        mRepo.m_teamRoster = response;
         mRepo.addCompletedTask("TeamRosterReady");
     }
 }

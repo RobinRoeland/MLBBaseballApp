@@ -20,12 +20,15 @@ public class MLBRosterEntry {
         if(s.equals("")){
             return true;
         }
-        return MLBPerson.fullName.toLowerCase().contains(s)
+        if(MLBPerson.fullName.toLowerCase().contains(s)
                 || jerseyNumber.toLowerCase().contains(s)
                 || MLBPosition.code.toLowerCase().contains(s)
                 || MLBPosition.type.toLowerCase().contains(s)
                 || MLBPosition.name.toLowerCase().contains(s)
-                || MLBPosition.abbreviation.toLowerCase().contains(s);
+                || MLBPosition.abbreviation.toLowerCase().contains(s) ) {
+            return true;
+        }
+        return false;
     }
 
     public void initialiseFromDB(Room_MLBRosterEntry entry) {

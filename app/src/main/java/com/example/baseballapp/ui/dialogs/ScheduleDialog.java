@@ -28,8 +28,8 @@ import java.time.format.DateTimeFormatter;
 public class ScheduleDialog extends DialogFragment {
     private DialogScheduleBinding binding;
 
-    private final MLBGame m_game;
-    private final MLBDataLayer m_repo;
+    private MLBGame m_game;
+    private MLBDataLayer m_repo;
     private BitMapItem bmpForStadium;
     private BitMapItem bmpForHome;
     private BitMapItem bmpForAway;

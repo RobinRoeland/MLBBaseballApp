@@ -3,6 +3,7 @@ package com.example.baseballapp.classes.MLB;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.baseballapp.LoadActivity;
 import com.example.baseballapp.classes.stadium.VenueBox;
 import com.example.baseballapp.classes.stadium.VenueZone;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

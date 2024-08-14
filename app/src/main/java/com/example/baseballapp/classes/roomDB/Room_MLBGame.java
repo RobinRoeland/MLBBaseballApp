@@ -9,8 +9,12 @@ import androidx.room.PrimaryKey;
 
 import com.example.baseballapp.classes.MLB.MLBDate;
 import com.example.baseballapp.classes.MLB.MLBGame;
+import com.example.baseballapp.classes.MLB.MLBStatus;
+import com.example.baseballapp.classes.MLB.MLBTicket;
 import com.example.baseballapp.classes.team.Team;
 import com.example.baseballapp.data.MLBDataLayer;
+
+import java.util.Objects;
 
 @Entity(tableName = "mlbgame_table")
 public class Room_MLBGame {
@@ -72,7 +76,7 @@ public class Room_MLBGame {
         gameGuid = fromGame.gameGuid;
         gamePk = fromGame.gamePk;
         String s = String.valueOf(gamePk);
-        Log.d("Robin", String.valueOf(fromGame.gamePk));
+        Log.d("jur", String.valueOf(fromGame.gamePk));
         link = fromGame.link;
         gameType = fromGame.gameType;
         season = fromGame.season;
@@ -102,4 +106,4 @@ public class Room_MLBGame {
         content_link = fromGame.content.link;
         return true;
     }
-}
+};

@@ -1,21 +1,38 @@
 package com.example.baseballapp;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.ui.AppBarConfiguration;
-
+import com.example.baseballapp.classes.MLB.MLBTeamInfo;
 import com.example.baseballapp.classes.MLB.MLBTicket;
 import com.example.baseballapp.classes.functionlib.LocaleFileLib;
 import com.example.baseballapp.classes.team.Team;
+import com.example.baseballapp.data.BaseballAppRoomDatabase;
 import com.example.baseballapp.data.MLBDataLayer;
-import com.example.baseballapp.databinding.ActivityPaypallProcessCompleteBinding;
 import com.example.baseballapp.tasks.WebFetchImageTask;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.entity.StringEntity;
+
+import com.example.baseballapp.databinding.ActivityPaypallProcessCompleteBinding;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
@@ -32,8 +49,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-
-import cz.msebera.android.httpclient.Header;
 
 public class PaypallProcessCompleteActivity extends AppCompatActivity {
 

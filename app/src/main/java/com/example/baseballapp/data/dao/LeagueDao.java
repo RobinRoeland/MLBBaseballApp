@@ -6,14 +6,16 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.baseballapp.classes.MLB.MLBTicket;
 import com.example.baseballapp.classes.league.League;
+import com.example.baseballapp.classes.league.LeagueList;
 
 import java.util.List;
 
 @Dao
 public interface LeagueDao {
     @Insert
-    void insertLeague(League league);
+    void insertTicket(League league);
 
     @Query("SELECT * FROM league_table")
     List<League> getAllLeagues();

@@ -2,6 +2,8 @@ package com.example.baseballapp.classes.stadium;
 
 import android.util.Log;
 
+import com.example.baseballapp.R;
+
 import java.util.Random;
 
 public class VenueBox {

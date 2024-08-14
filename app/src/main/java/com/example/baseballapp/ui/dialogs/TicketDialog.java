@@ -17,6 +17,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.baseballapp.classes.BitMapItem;
 import com.example.baseballapp.classes.MLB.MLBGame;
+import com.example.baseballapp.classes.MLB.MLBTeamInfo;
 import com.example.baseballapp.classes.MLB.MLBTicket;
 import com.example.baseballapp.classes.stadium.VenueBox;
 import com.example.baseballapp.classes.stadium.VenueZone;
@@ -32,20 +33,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Random;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class TicketDialog extends DialogFragment {
-    private final MLBGame m_game;
+    private MLBGame m_game;
     private BitMapItem stadiumimg;
     private TicketDialogBinding binding;
     private VenueZone currentZone;
     private VenueBox currentbox;
-    private final MLBDataLayer repo;
+    private MLBDataLayer repo;
     public String generatedSeatNr;
 
     public TicketDialog(MLBGame game){
@@ -65,7 +69,9 @@ public class TicketDialog extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         stadiumimg = new BitMapItem();
-        stadiumimg.m_imageName = "seat_MIL.jpg";
+        Team homeTeam = m_game.getHomeTeam(repo);
+        stadiumimg.m_imageName = homeTeam.getStadiumSeatsFileName();
+        // ex: "seat_MIL.jpg";
         stadiumimg.m_fullImageURL = "http://www.jursairplanefactory.com/baseballimg/seating/" + stadiumimg.m_imageName;
         stadiumimg.m_localFileSubFolder = "/images/venue";
 
@@ -92,7 +98,7 @@ public class TicketDialog extends DialogFragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 VenueZone zone = (VenueZone)parent.getItemAtPosition(position);
                 currentZone = zone;
-                binding.dialogTicketZoneBoxesSpinner.setVisibility(View.VISIBLE);
+                binding.dialogTicketZoneBoxesSpinner.setVisibility(View.VISIBLE);;
                 ArrayAdapter<VenueBox> boxArray = new ArrayAdapter<VenueBox>(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
                 boxArray.addAll(zone.m_BoxesList);
                 binding.dialogTicketZoneBoxesSpinner.setAdapter(boxArray);
@@ -130,7 +136,7 @@ public class TicketDialog extends DialogFragment {
                 if(repo.m_PaymentSessionToken_Paypal == "" )//&& repo.m_VerifyIfOnline
                     repo.Get_PaymentSessionToken();
                 else {
-                    if(!repo.isOnline() && repo.m_PaymentSessionToken_Paypal == "") {
+                    if(repo.isOnline() == false && repo.m_PaymentSessionToken_Paypal == "") {
                         Toast.makeText(getContext(), "It is only possible to buy tickets when online.", Toast.LENGTH_LONG).show();
                         return;
                     }
@@ -159,11 +165,11 @@ public class TicketDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if(binding.dialogTicketPurchaseNameET.getText().toString() == ""){
-                    Toast.makeText(getContext(), "Please fill in your name.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Please fill in your name.", Toast.LENGTH_LONG).show();;
                     return;
                 }
                 if(binding.dialogTicketPurchaseEmailET.getText().toString() == ""){
-                    Toast.makeText(getContext(), "Please fill in your email.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Please fill in your email.", Toast.LENGTH_LONG).show();;
                     return;
                 }
                 startPurchaseProcess();
@@ -192,7 +198,7 @@ public class TicketDialog extends DialogFragment {
             createPaypalPurchaseOrder();
         }
         else{
-            Toast.makeText(getContext(), "Retrieving paypal access token failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Retrieving paypal access token failed", Toast.LENGTH_LONG).show();;
         }
     }
 

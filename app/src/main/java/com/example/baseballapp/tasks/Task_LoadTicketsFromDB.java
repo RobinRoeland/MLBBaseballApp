@@ -2,16 +2,17 @@ package com.example.baseballapp.tasks;
 
 import android.os.AsyncTask;
 
+import com.example.baseballapp.classes.MLB.MLBTeamInfo;
 import com.example.baseballapp.classes.MLB.MLBTicket;
-import com.example.baseballapp.classes.roomDB.Room_MLBTicket;
 import com.example.baseballapp.data.BaseballAppRoomDatabase;
 import com.example.baseballapp.data.MLBDataLayer;
+import com.example.baseballapp.classes.roomDB.Room_MLBTicket;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Task_LoadTicketsFromDB extends AsyncTask<MLBDataLayer, Object, List<Room_MLBTicket>> {
-    private final String TAG = "Task_LoadTickets";
+    private String TAG = "Task_LoadTickets";
     private MLBDataLayer mRepo;
     @Override
     protected List<Room_MLBTicket> doInBackground(MLBDataLayer... repoL) {
@@ -19,7 +20,7 @@ public class Task_LoadTicketsFromDB extends AsyncTask<MLBDataLayer, Object, List
 
         BaseballAppRoomDatabase db = BaseballAppRoomDatabase.getInstance(mRepo.baseContext);
         //database tabel inlezen, als klaar, in postexecute zet in repo
-        List<Room_MLBTicket> ticketList = db.ticketDao().getAllTickets();
+        List<Room_MLBTicket> ticketList = (List<Room_MLBTicket>) db.ticketDao().getAllTickets();
         return ticketList;
     }
 

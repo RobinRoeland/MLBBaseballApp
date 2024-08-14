@@ -10,12 +10,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.baseballapp.R;
+import com.example.baseballapp.classes.MLB.MLBGame;
 import com.example.baseballapp.classes.MLB.MLBTicket;
 import com.example.baseballapp.databinding.DialogQrcodeBinding;
+import com.example.baseballapp.databinding.DialogScheduleBinding;
 
 public class QRCodeDialog extends DialogFragment {
     private DialogQrcodeBinding binding;
-    private final MLBTicket ticketToShow;
+    private MLBTicket ticketToShow;
     public QRCodeDialog(MLBTicket ticket){
         ticketToShow = ticket;
     }

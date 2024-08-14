@@ -1,20 +1,22 @@
 package com.example.baseballapp;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
+import com.example.baseballapp.classes.MLB.MLBGame;
 import com.example.baseballapp.classes.league.League;
 import com.example.baseballapp.classes.league.LeagueList;
 import com.example.baseballapp.classes.team.Team;
 import com.example.baseballapp.classes.team.TeamList;
 import com.example.baseballapp.data.MLBDataLayer;
 import com.example.baseballapp.databinding.ActivityTeamSelectionBinding;
+import com.example.baseballapp.tasks.WebFetchImageTask;
 import com.example.baseballapp.ui.TeamSelectionActViewModel;
 import com.example.baseballapp.ui.adapters.LeagueAdapter;
 import com.example.baseballapp.ui.adapters.TeamAdapter;

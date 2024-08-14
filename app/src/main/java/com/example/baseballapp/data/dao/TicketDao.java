@@ -6,8 +6,10 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.baseballapp.classes.MLB.MLBTicket;
 import com.example.baseballapp.classes.roomDB.Room_MLBTicket;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Dao

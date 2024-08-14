@@ -3,10 +3,16 @@ package com.example.baseballapp.classes.roomDB;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.example.baseballapp.classes.MLB.MLBTicket;
+import com.example.baseballapp.classes.MLBroster.MLBPerson;
+import com.example.baseballapp.classes.MLBroster.MLBPersonStatus;
+import com.example.baseballapp.classes.MLBroster.MLBPosition;
 import com.example.baseballapp.classes.MLBroster.MLBRosterEntry;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity(tableName = "roster_table")
 public class Room_MLBRosterEntry {

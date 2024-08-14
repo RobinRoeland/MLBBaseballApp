@@ -1,7 +1,6 @@
 package com.example.baseballapp.data;
 
 import androidx.room.TypeConverter;
-
 import java.sql.Timestamp;
 
 public class TimestampConverter {

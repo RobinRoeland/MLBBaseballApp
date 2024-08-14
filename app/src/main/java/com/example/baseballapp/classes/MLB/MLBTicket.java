@@ -1,5 +1,14 @@
 package com.example.baseballapp.classes.MLB;
 
+
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.example.baseballapp.classes.BitMapItem;
 import com.example.baseballapp.classes.roomDB.Room_MLBTicket;
 import com.example.baseballapp.classes.team.Team;

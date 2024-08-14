@@ -1,11 +1,16 @@
 package com.example.baseballapp.classes.team;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.baseballapp.classes.BitMapItem;
+import com.example.baseballapp.tasks.WebFetchImageTask;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(tableName = "team_table")
 public class Team extends BitMapItem {
@@ -76,4 +81,9 @@ public class Team extends BitMapItem {
     public String mlb_org_short;
     public String league_id;
     public String league;
+
+    public String getStadiumSeatsFileName() {
+        String s = "seat_" + mlb_org_abbrev + ".jpg";
+        return s;
+    }
 }

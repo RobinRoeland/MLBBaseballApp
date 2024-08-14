@@ -6,6 +6,8 @@ import android.util.Log;
 import com.example.baseballapp.classes.MLB.MLBApiResponse;
 import com.example.baseballapp.classes.MLB.MLBDate;
 import com.example.baseballapp.classes.MLB.MLBGame;
+import com.example.baseballapp.classes.team.Team;
+import com.example.baseballapp.classes.team.TeamAllSeasonResponse;
 import com.example.baseballapp.data.MLBDataLayer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;

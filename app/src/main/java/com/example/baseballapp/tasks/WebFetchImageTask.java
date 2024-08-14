@@ -20,7 +20,7 @@ import java.net.URL;
 public class WebFetchImageTask extends AsyncTask<BitMapItem, Integer, Bitmap> {
     public ImageView m_image;
     public BitMapItem m_forItem;
-    private final Context m_context;
+    private Context m_context;
 
     public WebFetchImageTask(Context context){
         m_context = context;

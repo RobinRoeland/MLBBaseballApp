@@ -1,16 +1,20 @@
 package com.example.baseballapp;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.example.baseballapp.classes.team.Team;
 import com.example.baseballapp.data.BaseballAppRoomDatabase;
 import com.example.baseballapp.data.MLBDataLayer;
 import com.example.baseballapp.databinding.ActivityLoadBinding;
+import com.example.baseballapp.databinding.ActivityTeamSelectionBinding;
 import com.example.baseballapp.tasks.Task_VerifyOnlineStatus;
 
 import java.util.Calendar;
@@ -21,8 +25,7 @@ import java.util.TimerTask;
 public class LoadActivity extends AppCompatActivity {
     private MLBDataLayer repo;
     private ActivityLoadBinding binding;
-    enum loadphases { phaseCheckOnline, phaseWaitingForReturnOnline, phaseLoadOne_readteams, phaseLoadOne_saveToDB, phaseLoadOne_ReadyForMoveToTeamSelectionAct, phaseLoadTwo_Start, phaseLoadTwo_TeamSelectionReady, phaseLoadTwo_saveToDB, phaseEndAppAfterPause }
-
+    enum loadphases { phaseCheckOnline, phaseWaitingForReturnOnline, phaseLoadOne_readteams, phaseLoadOne_saveToDB, phaseLoadOne_ReadyForMoveToTeamSelectionAct, phaseLoadTwo_Start, phaseLoadTwo_TeamSelectionReady, phaseLoadTwo_saveToDB, phaseEndAppAfterPause };
     private loadphases m_phase;
 
     private long AcitivityEndTimeInMilleseconds; //to end application after x sec

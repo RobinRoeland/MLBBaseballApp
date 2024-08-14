@@ -8,6 +8,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.example.baseballapp.classes.MLB.MLBTicket;
+import com.example.baseballapp.classes.MLBroster.MLBRosterEntry;
 import com.example.baseballapp.classes.league.League;
 import com.example.baseballapp.classes.roomDB.Room_MLBGame;
 import com.example.baseballapp.classes.roomDB.Room_MLBRosterEntry;

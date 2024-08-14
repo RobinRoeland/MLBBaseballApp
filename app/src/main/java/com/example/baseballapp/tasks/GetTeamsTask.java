@@ -5,7 +5,9 @@ import android.util.Log;
 
 import com.example.baseballapp.classes.team.Team;
 import com.example.baseballapp.classes.team.TeamAllSeasonResponse;
+import com.example.baseballapp.data.BaseballAppRoomDatabase;
 import com.example.baseballapp.data.MLBDataLayer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +21,7 @@ public class GetTeamsTask extends AsyncTask<Integer, Integer, TeamAllSeasonRespo
     protected TeamAllSeasonResponse doInBackground(Integer... ints) {
         int jaar = ints[0];
         OkHttpClient client = new OkHttpClient();
-        String dataUrl = "https://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code=%27mlb%27&all_star_sw=%27N%27&sort_order=name_asc&season=%27"+ jaar + "%27";
+        String dataUrl = "https://lookup-service-prod.mlb.com/json/named.team_all_season.bam?sport_code=%27mlb%27&all_star_sw=%27N%27&sort_order=name_asc&season=%27"+ String.valueOf(jaar) + "%27";
 
         String s = "";
         Request request = new Request.Builder()

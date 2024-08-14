@@ -13,9 +13,9 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.baseballapp.R;
+import com.example.baseballapp.classes.functionlib.CalenderHelpFunctions;
 import com.example.baseballapp.classes.MLB.MLBGame;
 import com.example.baseballapp.classes.MLB.MLBTeamInfo;
-import com.example.baseballapp.classes.functionlib.CalenderHelpFunctions;
 import com.example.baseballapp.classes.team.Team;
 import com.example.baseballapp.data.MLBDataLayer;
 import com.example.baseballapp.ui.dialogs.ScheduleDialog;
@@ -38,13 +38,13 @@ public class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.BaseCa
         gameDay
     }
 
-    private final MLBDataLayer repo;
+    private MLBDataLayer repo;
     
     private LocalDateTime m_datum;
     public Context m_context;
     private ECalenderViewTypes viewTypes;
-    private final ArrayList<List<MLBGame>> foundGameForMonth;
-    private final ScheduleFragment m_parentFragment;
+    private ArrayList<List<MLBGame>> foundGameForMonth;
+    private ScheduleFragment m_parentFragment;
 
     public CalenderAdapter(Context c, LocalDateTime date, ScheduleFragment f){
         repo = MLBDataLayer.getInstance();
@@ -230,7 +230,7 @@ public class CalenderAdapter extends RecyclerView.Adapter<CalenderAdapter.BaseCa
     }
 
     public class BaseCalenderItemViewHolder extends RecyclerView.ViewHolder{
-        private final CalenderAdapter m_adapter;
+        private CalenderAdapter m_adapter;
         private LocalDateTime m_datum;
 
         public BaseCalenderItemViewHolder(@NonNull View itemView, CalenderAdapter ad) {

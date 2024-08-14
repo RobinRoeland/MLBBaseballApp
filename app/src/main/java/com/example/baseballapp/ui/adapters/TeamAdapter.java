@@ -1,5 +1,6 @@
 package com.example.baseballapp.ui.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +13,21 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.baseballapp.LoadActivity;
 import com.example.baseballapp.R;
+import com.example.baseballapp.classes.league.League;
 import com.example.baseballapp.classes.team.Team;
 import com.example.baseballapp.classes.team.TeamList;
 import com.example.baseballapp.data.MLBDataLayer;
+import com.example.baseballapp.tasks.WebFetchImageTask;
 
 public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder> {
-    private final Context m_context;
+    private Context m_context;
     private TeamList m_displayList;
-    private final MLBDataLayer m_repo;
+    private MLBDataLayer m_repo;
 
     public TeamAdapter(Context context, TeamList teamList, MLBDataLayer r){
         m_context = context;
@@ -46,7 +51,7 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
             public void onClick(View view) {
                 int pos = holder.getAdapterPosition();
                 Team team = m_displayList.get(pos);
-                if(!m_repo.isOnline()) {
+                if(m_repo.isOnline() == false) {
                     //offline
                     if(m_repo.isTeamDetailsAvailableOffline(team)) {
                         MLBDataLayer.getInstance().m_selectedTeam.setValue(team);
@@ -91,11 +96,11 @@ public class TeamAdapter extends RecyclerView.Adapter<TeamAdapter.TeamViewHolder
     }
 
     public class TeamViewHolder extends RecyclerView.ViewHolder{
-        private final TeamAdapter m_adapter;
-        private final TextView m_teamName;
-        private final TextView m_teamShortName;
-        private final ImageView m_teamImage;
-        private final CardView m_Card;
+        private TeamAdapter m_adapter;
+        private TextView m_teamName;
+        private TextView m_teamShortName;
+        private ImageView m_teamImage;
+        private CardView m_Card;
 
         public TeamViewHolder(@NonNull View itemView, TeamAdapter ad) {
             super(itemView);

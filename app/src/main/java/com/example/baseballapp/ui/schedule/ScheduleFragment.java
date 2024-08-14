@@ -4,18 +4,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.baseballapp.data.MLBDataLayer;
 import com.example.baseballapp.databinding.FragmentScheduleBinding;
 import com.example.baseballapp.ui.adapters.CalenderAdapter;
+import com.example.baseballapp.ui.adapters.LeagueAdapter;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneId;
 import java.util.Date;
 
@@ -95,7 +100,7 @@ public class ScheduleFragment extends Fragment {
     }
     public void goOneMonthBack() {
         datum = datum.minusMonths(1);
-        setMonth(datum);
+        setMonth(datum);;
         CalenderAdapter adapter = (CalenderAdapter) binding.calenderRV.getAdapter();
         adapter.setDate(datum);
         adapter.notifyDataSetChanged();

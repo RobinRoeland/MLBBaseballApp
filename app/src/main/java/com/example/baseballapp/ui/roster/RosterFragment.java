@@ -28,7 +28,8 @@ public class RosterFragment extends Fragment {
         rosterViewModel =
                 new ViewModelProvider(this).get(RosterViewModel.class);
 
-        List<MLBRosterEntry> roster =  MLBDataLayer.getInstance().getRosterForTeam(MLBDataLayer.getInstance().m_selectedTeam.getValue());
+        MLBDataLayer repo = MLBDataLayer.getInstance();
+        List<MLBRosterEntry> roster = repo.m_teamRoster.roster;
         rosterViewModel.initialisePersonsListFromRepo();
 
         binding = FragmentRosterBinding.inflate(inflater, container, false);

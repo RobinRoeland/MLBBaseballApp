@@ -61,6 +61,6 @@ public class Room_MLBTicket {
         QRCodeImageName = fromTicket.m_imageName;
         fullImageURL = fromTicket.m_fullImageURL;
         localfilesubfolder = fromTicket.m_localFileSubFolder;
-        stadium = fromTicket.stadium;
+        stadium = fromTicket.stadium;;
     }
 }

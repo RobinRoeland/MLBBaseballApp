@@ -17,7 +17,7 @@ import okhttp3.Response;
 
 public class GetRosterTask extends AsyncTask<Team, Integer, MLBRosterResponse> {
     private Team m_team;
-    private final MLBDataLayer m_repo;
+    private MLBDataLayer m_repo;
 
     public GetRosterTask() {
         m_repo = MLBDataLayer.getInstance();
@@ -80,7 +80,7 @@ public class GetRosterTask extends AsyncTask<Team, Integer, MLBRosterResponse> {
             webTask.execute(entry.MLBPerson);
 
         }
-        dataPool.m_teamRosterMap.put(m_team.mlb_org_id, rosterResponse);
+        dataPool.m_teamRoster = rosterResponse;
         dataPool.addCompletedTask("TeamRosterReady");
     }
 }

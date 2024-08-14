@@ -3,16 +3,19 @@ package com.example.baseballapp.data;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
+import androidx.room.RoomDatabase;
 
 import com.example.baseballapp.classes.MLB.MLBApiResponse;
 import com.example.baseballapp.classes.MLB.MLBDate;
 import com.example.baseballapp.classes.MLB.MLBGame;
 import com.example.baseballapp.classes.MLB.MLBTicket;
+import com.example.baseballapp.classes.league.LeagueList;
+import com.example.baseballapp.classes.league.League;
 import com.example.baseballapp.classes.MLBroster.MLBRosterEntry;
 import com.example.baseballapp.classes.MLBroster.MLBRosterResponse;
-import com.example.baseballapp.classes.league.League;
-import com.example.baseballapp.classes.league.LeagueList;
 import com.example.baseballapp.classes.roomDB.Room_MLBGame;
 import com.example.baseballapp.classes.roomDB.Room_MLBRosterEntry;
 import com.example.baseballapp.classes.roomDB.Room_MLBTicket;
@@ -22,10 +25,10 @@ import com.example.baseballapp.tasks.GetGamesTask;
 import com.example.baseballapp.tasks.GetRosterTask;
 import com.example.baseballapp.tasks.GetTeamsTask;
 import com.example.baseballapp.tasks.Task_LoadGamesFromDB;
-import com.example.baseballapp.tasks.Task_LoadTeamRosterFromDB;
 import com.example.baseballapp.tasks.Task_LoadTeamsFromDB;
-import com.example.baseballapp.tasks.Task_LoadTeamsThatHaveOfflineRosterFromDB;
+import com.example.baseballapp.tasks.Task_LoadTeamRosterFromDB;
 import com.example.baseballapp.tasks.Task_LoadTicketsFromDB;
+import com.example.baseballapp.tasks.Task_LoadTeamsThatHaveOfflineRosterFromDB;
 import com.example.baseballapp.tasks.WebFetchImageTask;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -37,8 +40,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.HttpEntity;
@@ -46,13 +53,13 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class MLBDataLayer {
     public static MLBDataLayer dataLayer = null;
-    private final ArrayList<String> m_CompletedTasks; //when threads are finished, they post a message that they are ready (for loadactivity)
+    private ArrayList<String> m_CompletedTasks; //when threads are finished, they post a message that they are ready (for loadactivity)
     public TeamList teamList;
     public ArrayList<Team> m_OfflineAvailableTeamsList; //only filled in offline mode to indicate which teams have roster data
     public MLBApiResponse MLBGamesList;
     public MutableLiveData<LeagueList> m_leagueList;
     public MutableLiveData<Team> m_selectedTeam;
-    public HashMap<String, MLBRosterResponse> m_teamRosterMap;
+    public MLBRosterResponse m_teamRoster;
     public Context baseContext;
     public boolean m_VerifyIfOnline;
     public MLBTicket m_tempTicketDuringPayment;
@@ -74,7 +81,7 @@ public class MLBDataLayer {
         m_selectedTeam.setValue(null);
         m_TicketList = new MutableLiveData<List<MLBTicket>>();
         m_TicketList.setValue(new ArrayList<MLBTicket>());
-        m_teamRosterMap = new HashMap<String, MLBRosterResponse>();
+        m_teamRoster = null;
         baseContext = null;
         m_PaymentSessionToken_Paypal = "";
         m_VerifyIfOnline = false;
@@ -98,7 +105,9 @@ public class MLBDataLayer {
     }
 
     public boolean isTeamDetailsAvailableOffline(Team t) {
-        return m_OfflineAvailableTeamsList.contains(t);
+        if (m_OfflineAvailableTeamsList.contains(t))
+            return true;
+        return false;
     }
 
     public boolean isOnline() {
@@ -108,6 +117,7 @@ public class MLBDataLayer {
     public void initialiseForTeamSelection() {
         // oproepen bij teamselection activity, als terug naar teamselection
         //alles terug klaarzetten voor nieuwe teamselectie en wachten op loaded
+        // wissen van vorige geselecteerde team in repo
 
         clearCompletedTasks();
 
@@ -117,6 +127,9 @@ public class MLBDataLayer {
         else
             MLBGamesList.RemoveAllGames();
 
+        m_teamRoster = null;
+        
+        //remove all tickets
         List<MLBTicket> ticketlist = m_TicketList.getValue();
         ticketlist.clear();
         m_TicketList.postValue(ticketlist);
@@ -195,15 +208,17 @@ public class MLBDataLayer {
         // check if games are read
         if(isTaskCompleted("GameListReady") && isTaskCompleted("TeamRosterReady")) {
             //check if all players are read and player image is loaded
-            MLBRosterResponse response = m_teamRosterMap.get(m_selectedTeam.getValue().mlb_org_id);
-            if(response != null) {
-                for (MLBRosterEntry entr : response.roster) {
+            if(m_teamRoster != null) {
+                for (MLBRosterEntry entr : m_teamRoster.roster) {
                     if (entr.MLBPerson.m_image == null)
                         return false;
                 }
             }
             //check if tickets are loaded
-            return isTaskCompleted("TicketsLoadedFromDB");
+            if(isTaskCompleted("TicketsLoadedFromDB") == false)
+                return false;
+
+            return true;
         }
         return false;
     }
@@ -213,8 +228,9 @@ public class MLBDataLayer {
 
         if(isOnline()) {
             //when online also save to roomdb must be completed, whenoffline no saving
-            return isTaskCompleted("RosterSaved_ToDB") &&
-                    isTaskCompleted("GamesSaved_ToDB");
+            if(!isTaskCompleted("RosterSaved_ToDB") ||
+                   !isTaskCompleted("GamesSaved_ToDB"))
+                return false;
 
         }
         return true;
@@ -223,16 +239,6 @@ public class MLBDataLayer {
     public void initRosterForTeam(Team team) {
         GetRosterTask task = new GetRosterTask();
         task.execute(team);
-    }
-
-    public List<MLBRosterEntry> getRosterForTeam(Team team) {
-        if(team == null)
-            return null;
-
-        if(m_teamRosterMap.containsKey(team.mlb_org_id))
-            return m_teamRosterMap.get(team.mlb_org_id).roster;
-        else
-            return null;
     }
 
     public void Get_PaymentSessionToken(){
@@ -330,7 +336,7 @@ public class MLBDataLayer {
                         if(isValid)
                             listgamestosave.add(a_db_game);
                         else
-                            Log.e("MLBGamesResponse", "Invalid game found : " + game.gamePk);
+                            Log.e("MLBGamesResponse", "Invalid game found : " + String.valueOf(game.gamePk));
 
                     }
                 }
@@ -396,21 +402,17 @@ public class MLBDataLayer {
             @Override
             public void run() {
                 db.rosterDao().deleteRosterEntryByTeamId(Integer.parseInt(tosave.mlb_org_id));
-                if(m_teamRosterMap.containsKey(m_selectedTeam.getValue().mlb_org_id)) {
-                    MLBRosterResponse response = m_teamRosterMap.get(m_selectedTeam.getValue().mlb_org_id);
 
-                    //convert MLBRosterEntries to Room_MLBRosterEntry flat record structure
-                    List<Room_MLBRosterEntry> listOfRosterEntries = new ArrayList<Room_MLBRosterEntry>();
-                    for (MLBRosterEntry entry : response.roster) {
-                        Room_MLBRosterEntry room_entry = new Room_MLBRosterEntry(entry);
-                        listOfRosterEntries.add(room_entry);
-                    }
-                    db.rosterDao().insertMultipleRosterEntries(listOfRosterEntries);
+                //convert MLBRosterEntries to Room_MLBRosterEntry flat record structure
+                List<Room_MLBRosterEntry> listOfRosterEntries = new ArrayList<Room_MLBRosterEntry>();
+                for (MLBRosterEntry entry : m_teamRoster.roster) {
+                    Room_MLBRosterEntry room_entry = new Room_MLBRosterEntry(entry);
+                    listOfRosterEntries.add(room_entry);
                 }
+                db.rosterDao().insertMultipleRosterEntries(listOfRosterEntries);
                 addCompletedTask("RosterSaved_ToDB");
             }
         });
-
     }
 
     public void loadAvailabilityOfTeamsInOfflineMode() {
@@ -426,7 +428,8 @@ public class MLBDataLayer {
             m_CompletedTasks.add(taskname);
     }
     public void removeCompletedTask(String taskname) {
-        m_CompletedTasks.remove(taskname);
+        if(m_CompletedTasks.contains(taskname))
+            m_CompletedTasks.remove(taskname);
     }
     public void clearCompletedTasks() {
         //only keep online check
@@ -437,7 +440,9 @@ public class MLBDataLayer {
         }
     }
     public boolean isTaskCompleted(String taskname) {
-        return m_CompletedTasks.contains(taskname);
+        if(m_CompletedTasks.contains(taskname))
+            return true;
+        return false;
     }
     public void sortTicketsByGameDate() {
         // bubble sort on gamedate

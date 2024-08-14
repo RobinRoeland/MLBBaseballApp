@@ -3,6 +3,9 @@ package com.example.baseballapp;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.baseballapp.data.MLBDataLayer;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,9 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.baseballapp.data.MLBDataLayer;
 import com.example.baseballapp.databinding.ActivityMainBinding;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 

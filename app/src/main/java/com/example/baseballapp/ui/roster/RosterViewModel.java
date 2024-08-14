@@ -3,6 +3,8 @@ package com.example.baseballapp.ui.roster;
 import androidx.lifecycle.ViewModel;
 
 import com.example.baseballapp.classes.MLBroster.MLBRosterEntry;
+import com.example.baseballapp.classes.MLBroster.MLBRosterResponse;
+import com.example.baseballapp.classes.league.LeagueList;
 import com.example.baseballapp.data.MLBDataLayer;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class RosterViewModel extends ViewModel {
 
     public void FilterListOnEnteredSearchString(String s) {
         m_displayPersonsList.clear();
-        List<MLBRosterEntry> roster =  MLBDataLayer.getInstance().getRosterForTeam(MLBDataLayer.getInstance().m_selectedTeam.getValue());
+        List<MLBRosterEntry> roster =  MLBDataLayer.getInstance().m_teamRoster.roster;
         for (MLBRosterEntry rosterentry: roster)
         {
             if (rosterentry.compliesToFilter(s))
@@ -28,7 +30,7 @@ public class RosterViewModel extends ViewModel {
     }
 
     public void initialisePersonsListFromRepo() {
-        List<MLBRosterEntry> roster =  MLBDataLayer.getInstance().getRosterForTeam(MLBDataLayer.getInstance().m_selectedTeam.getValue());
+        List<MLBRosterEntry> roster =  MLBDataLayer.getInstance().m_teamRoster.roster;
         m_displayPersonsList.addAll(roster);
     }
 }

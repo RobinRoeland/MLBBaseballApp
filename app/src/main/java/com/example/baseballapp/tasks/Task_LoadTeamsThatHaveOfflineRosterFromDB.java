@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Task_LoadTeamsThatHaveOfflineRosterFromDB extends AsyncTask<MLBDataLayer, Object, List<Integer>> {
-    private final String TAG = "Task_LoadTeamsThatHaveOfflineRosterFromDB";
+    private String TAG = "Task_LoadTeamsThatHaveOfflineRosterFromDB";
     private MLBDataLayer mRepo;
     @Override
     protected List<Integer> doInBackground(MLBDataLayer... repoL) {
@@ -20,7 +20,7 @@ public class Task_LoadTeamsThatHaveOfflineRosterFromDB extends AsyncTask<MLBData
         //lees van roomDB alle teams die een roster gesaved hebben in de roster tabel
         //indien aanwezig, dan is het team eerder online geraadpleegd en is de data van games en roster gesaved en kan offline gebruikt worden
         //resultaat van deze query is alle team id's die voorkomen in roster_table
-        List<Integer> teamsList = db.rosterDao().getDistinctTeamsFromRoster();
+        List<Integer> teamsList = (List<Integer>) db.rosterDao().getDistinctTeamsFromRoster();
         return teamsList;
     }
 
