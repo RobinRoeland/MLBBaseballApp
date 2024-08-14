@@ -1,6 +1,6 @@
 # MLBBaseballApp
-Android java app for baseball
-This app was written in android studio Koala 2024.1.1 Patch 1
+Android java app for baseball.
+This app was written by Robin Roeland in android studio Koala 2024.1.1 Patch 1.
 
 Description:
 - The Baseball ticket app allow users to select a Major League Baseball team from the American or National league. Users can browse the game schedule via a calendar and see the team roster of the 
